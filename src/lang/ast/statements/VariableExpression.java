@@ -12,7 +12,10 @@ public class VariableExpression implements Expression {
     }
     
     @Override
-    public Integer evaluate(Map<String, Object> variables) {
-        return (Integer) variables.get(name);
+    public Object evaluate(Map<String, Object> variables) {
+        if (!variables.containsKey(name)) {
+            throw new RuntimeException("Variable not defined: " + name);
+        }
+        return variables.get(name);
     }
 }

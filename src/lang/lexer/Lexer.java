@@ -12,6 +12,10 @@ public class Lexer {
         while (i < line.length()) {
             char c = line.charAt(i);
 
+            if(c == '#') {
+                break; // ignora o resto da linha
+            }
+            
             // pular espaços
             if (Character.isWhitespace(c)) {
                 i++;

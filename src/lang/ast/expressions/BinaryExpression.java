@@ -1,4 +1,5 @@
 package lang.ast.expressions;
+
 import java.util.Map;
 
 import lang.lexer.TokenType;
@@ -16,17 +17,21 @@ public class BinaryExpression implements Expression {
     }
 
     @Override
-    public Integer evaluate(Map<String, Object> variables) {
+    public Object evaluate(Map<String, Object> variables) {
 
-        Integer l = (Integer) left.evaluate(variables);
-        Integer r = (Integer) right.evaluate(variables);
+        Object l = left.evaluate(variables);
+        Object r = right.evaluate(variables);
 
         switch (operator) {
             case PLUS:
-                return l + r;
+                if (l instanceof Integer && r instanceof Integer) {
+                    return (Integer) l + (Integer) r;
+                }
+
+                return String.valueOf(l) + String.valueOf(r);
 
             case MINUS:
-                return l - r;
+                return (Integer) l - (Integer) r;
 
             default:
                 throw new RuntimeException("Unknown operator");

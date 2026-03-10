@@ -38,9 +38,8 @@ public class Parser {
 
         if (first.getType() == TokenType.PRINT) {
 
-            String name = tokens.get(1).getValue();
-
-            return new PrintStatement(name);
+            Expression expr = parseExpression(tokens, 1); // começa do token depois de PRINT
+            return new PrintStatement(expr);
         }
 
         throw new RuntimeException("Unknown statement");
@@ -70,6 +69,8 @@ public class Parser {
 
             if (rightToken.getType() == TokenType.NUMBER) {
                 right = new NumberExpression(Integer.parseInt(rightToken.getValue()));
+            } else if (rightToken.getType() == TokenType.STRING) {
+                right = new StringExpression(String.valueOf(rightToken.getValue()));
             } else {
                 right = new VariableExpression(rightToken.getValue());
             }

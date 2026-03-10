@@ -23,8 +23,9 @@ public class Interpreter {
         if (node instanceof PrintStatement) {
 
             PrintStatement print = (PrintStatement) node;
+            Object value = print.expression.evaluate(variables);
 
-            System.out.println(variables.get(print.name));
+            System.out.println(value);
 
         }
 

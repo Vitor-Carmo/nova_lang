@@ -1,3 +1,31 @@
+# Variáveis numéricas
+let a = 5
+let b = 10
+print a           # saída: 5
+print b           # saída: 10
+print a + b       # saída: 15
+print a + 20      # saída: 25
+
+# Variáveis de string
+let hello = "Hello"
+let world = "World"
+print hello        # saída: Hello
+print world        # saída: World
+
+# Ainda não pega
+# print hello + " " + world  # saída: Hello World
+
+# Mistura número + string
+print "The number is " + a   # saída: The number is 5
+print "Sum: " + (a + b)      # saída: Sum: 15
+
+# Strings literais
+print "Hello, Nova!"          # saída: Hello, Nova!
+print "This is a test."       # saída: This is a test.
+
+# Operações com números
 let x = 7
-let y = "aaaaaaa"
-print x
+let y = 3
+print x - y       # saída: 4
+print x + y       # saída: 10
+print x + 5       # saída: 12

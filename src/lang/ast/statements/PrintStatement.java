@@ -1,10 +1,13 @@
 package lang.ast.statements;
+
+import lang.ast.expressions.Expression;
+
 public class PrintStatement {
 
-    public String name;
+    public Expression expression;
 
-    public PrintStatement(String name) {
-        this.name = name;
+    public PrintStatement(Expression expression) {
+        this.expression = expression;
     }
 
 }
