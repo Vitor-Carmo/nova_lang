@@ -1,4 +1,4 @@
-package lang.ast.expressions;
+package main.java.lang.ast.expressions;
 import java.util.Map;
 
 public class StringExpression implements Expression {

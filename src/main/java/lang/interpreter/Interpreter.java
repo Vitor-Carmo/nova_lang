@@ -1,9 +1,9 @@
-package lang.interpreter;
+package main.java.lang.interpreter;
 import java.util.HashMap;
 import java.util.Map;
 
-import lang.ast.statements.PrintStatement;
-import lang.ast.statements.VariableDeclaration;
+import main.java.lang.ast.statements.PrintStatement;
+import main.java.lang.ast.statements.VariableDeclaration;
 
 public class Interpreter {
 

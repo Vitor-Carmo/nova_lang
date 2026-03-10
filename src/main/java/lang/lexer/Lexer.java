@@ -1,4 +1,4 @@
-package lang.lexer;
+package main.java.lang.lexer;
 
 import java.util.ArrayList;
 import java.util.List;

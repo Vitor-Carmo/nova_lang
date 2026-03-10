@@ -116,42 +116,46 @@ The interpreter evaluates this tree recursively.
 # 📁 Project Structure
 
     src
-    │
-    ├── lexer
-    │   ├── Lexer.java
-    │   ├── Token.java
-    │   └── TokenType.java
-    │
-    ├── parser
-    │   └── Parser.java
-    │
-    ├── ast
-    │   ├── expressions
-    │   │   ├── Expression.java
-    │   │   ├── NumberExpression.java
-    │   │   ├── VariableExpression.java
-    │   │   └── BinaryExpression.java
-    │   │
-    │   └── statements
-    │       ├── VariableDeclaration.java
-    │       └── PrintStatement.java
-    │
-    ├── interpreter
-    │   └── Interpreter.java
-    │
-    └── Main.java
-
+    ├── main
+    │   ├── java
+    │   │   └── lang
+    │   │       ├── ast
+    │   │       │   ├── expressions
+    │   │       │   │   ├── BinaryExpression.java
+    │   │       │   │   ├── Expression.java
+    │   │       │   │   ├── NumberExpression.java
+    │   │       │   │   └── StringExpression.java
+    │   │       │   └── statements
+    │   │       │       ├── PrintStatement.java
+    │   │       │       ├── VariableDeclaration.java
+    │   │       │       └── VariableExpression.java
+    │   │       ├── interpreter
+    │   │       │   └── Interpreter.java
+    │   │       ├── lexer
+    │   │       │   ├── Keywords.java
+    │   │       │   ├── Lexer.java
+    │   │       │   ├── Token.java
+    │   │       │   └── TokenType.java
+    │   │       ├── Main.java
+    │   │       └── parser
+    │   │           └── Parser.java
+    │   └── resources
+    │       ├── hello_world.nova
+    │       ├── print.nova
+    │       ├── soma.nova
+    │       └── subtracao.nova
+    └── test
+        └── java
+            └── lang
 ------------------------------------------------------------------------
 
 # 🚀 Running the Interpreter
 
-Compile the project:
+just run:
 
-    javac src/**/*.java
-
-Run the interpreter:
-
-    java Main src/resources/soma.nova
+```bash
+make run-file file=src/main/resources/hello_world.nova
+```
 
 Example program:
 

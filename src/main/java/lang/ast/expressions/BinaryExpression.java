@@ -1,8 +1,8 @@
-package lang.ast.expressions;
+package main.java.lang.ast.expressions;
 
 import java.util.Map;
 
-import lang.lexer.TokenType;
+import main.java.lang.lexer.TokenType;
 
 public class BinaryExpression implements Expression {
 

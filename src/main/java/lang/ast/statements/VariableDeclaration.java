@@ -1,6 +1,6 @@
-package lang.ast.statements;
+package main.java.lang.ast.statements;
 
-import lang.ast.expressions.Expression;
+import main.java.lang.ast.expressions.Expression;
 
 public class VariableDeclaration {
     public String name;
