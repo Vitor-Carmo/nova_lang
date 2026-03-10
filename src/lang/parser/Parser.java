@@ -5,6 +5,7 @@ import java.util.List;
 import lang.ast.expressions.BinaryExpression;
 import lang.ast.expressions.Expression;
 import lang.ast.expressions.NumberExpression;
+import lang.ast.expressions.StringExpression;
 import lang.ast.statements.PrintStatement;
 import lang.ast.statements.VariableDeclaration;
 import lang.ast.statements.VariableExpression;
@@ -54,6 +55,8 @@ public class Parser {
 
         if (first.getType() == TokenType.NUMBER) {
             left = new NumberExpression(Integer.parseInt(first.getValue()));
+        } else if (first.getType() == TokenType.STRING) {
+            left = new StringExpression(String.valueOf(first.getValue()));
         } else {
             left = new VariableExpression(first.getValue());
         }

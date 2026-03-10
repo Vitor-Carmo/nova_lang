@@ -12,7 +12,7 @@ public class VariableExpression implements Expression {
     }
     
     @Override
-    public int evaluate(Map<String, Integer> variables) {
-        return variables.get(name);
+    public Integer evaluate(Map<String, Object> variables) {
+        return (Integer) variables.get(name);
     }
 }

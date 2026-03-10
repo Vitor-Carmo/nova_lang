@@ -16,10 +16,10 @@ public class BinaryExpression implements Expression {
     }
 
     @Override
-    public int evaluate(Map<String, Integer> variables) {
+    public Integer evaluate(Map<String, Object> variables) {
 
-        int l = left.evaluate(variables);
-        int r = right.evaluate(variables);
+        Integer l = (Integer) left.evaluate(variables);
+        Integer r = (Integer) right.evaluate(variables);
 
         switch (operator) {
             case PLUS:

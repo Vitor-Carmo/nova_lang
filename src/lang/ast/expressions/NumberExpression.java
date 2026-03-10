@@ -10,7 +10,7 @@ public class NumberExpression implements Expression {
     }
 
     @Override
-    public int evaluate(Map<String, Integer> variables) {
+    public Integer evaluate(Map<String, Object> variables) {
         return value;
     }
 }

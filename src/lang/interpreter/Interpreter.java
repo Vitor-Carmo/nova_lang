@@ -7,7 +7,7 @@ import lang.ast.statements.VariableDeclaration;
 
 public class Interpreter {
 
-    Map<String, Integer> variables = new HashMap<>();
+    Map<String, Object> variables = new HashMap<>();
 
     public void execute(Object node) {
 
@@ -15,7 +15,7 @@ public class Interpreter {
 
             VariableDeclaration var = (VariableDeclaration) node;
 
-            int value = var.expression.evaluate(variables);
+            Object value = var.expression.evaluate(variables);
 
             variables.put(var.name, value);
         }

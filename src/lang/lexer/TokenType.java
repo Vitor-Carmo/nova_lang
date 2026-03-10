@@ -3,7 +3,8 @@ public enum TokenType {
     LET,
     IDENTIFIER,
     NUMBER,
-    EQUAL,
+    STRING,
+    EQUALS,
     PLUS,
     MINUS,
     PRINT
