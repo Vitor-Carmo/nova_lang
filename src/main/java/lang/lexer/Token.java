@@ -1,4 +1,4 @@
-package main.java.lang.lexer;
+package lang.lexer;
 
 public class Token {
     TokenType type;

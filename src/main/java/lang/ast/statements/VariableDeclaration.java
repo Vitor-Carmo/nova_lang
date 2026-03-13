@@ -1,13 +1,20 @@
-package main.java.lang.ast.statements;
+package lang.ast.statements;
 
-import main.java.lang.ast.expressions.Expression;
+import lang.ast.expressions.Expression;
 
 public class VariableDeclaration {
-    public String name;
-    public Expression expression;
+    private String name;
+    private Expression expression;
 
     public VariableDeclaration(String name, Expression expression) {
         this.name = name;
         this.expression = expression;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public Expression getExpression() {
+        return expression;
     }
 }

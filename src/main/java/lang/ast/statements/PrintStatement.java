@@ -1,13 +1,17 @@
-package main.java.lang.ast.statements;
+package lang.ast.statements;
 
-import main.java.lang.ast.expressions.Expression;
+import lang.ast.expressions.Expression;
 
 public class PrintStatement {
 
-    public Expression expression;
+    private Expression expression;
 
     public PrintStatement(Expression expression) {
         this.expression = expression;
+    }
+
+    public Expression getExpression() {
+        return expression;
     }
 
 }

@@ -1,16 +1,16 @@
-package main.java.lang.parser;
+package lang.parser;
 
 import java.util.List;
 
-import main.java.lang.ast.expressions.BinaryExpression;
-import main.java.lang.ast.expressions.Expression;
-import main.java.lang.ast.expressions.NumberExpression;
-import main.java.lang.ast.expressions.StringExpression;
-import main.java.lang.ast.statements.PrintStatement;
-import main.java.lang.ast.statements.VariableDeclaration;
-import main.java.lang.ast.statements.VariableExpression;
-import main.java.lang.lexer.Token;
-import main.java.lang.lexer.TokenType;
+import lang.ast.expressions.BinaryExpression;
+import lang.ast.expressions.Expression;
+import lang.ast.expressions.NumberExpression;
+import lang.ast.expressions.StringExpression;
+import lang.ast.statements.PrintStatement;
+import lang.ast.statements.VariableDeclaration;
+import lang.ast.statements.VariableExpression;
+import lang.lexer.Token;
+import lang.lexer.TokenType;
 
 public class Parser {
 

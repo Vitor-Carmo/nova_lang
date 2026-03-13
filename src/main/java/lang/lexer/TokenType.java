@@ -1,4 +1,4 @@
-package main.java.lang.lexer;
+package lang.lexer;
 public enum TokenType {
     LET,
     IDENTIFIER,
@@ -7,6 +7,8 @@ public enum TokenType {
     EQUALS,
     PLUS,
     MINUS,
+    MULTIPLY,
+    DIVIDE,
     PRINT
 }
 

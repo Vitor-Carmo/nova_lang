@@ -1,4 +1,4 @@
-package main.java.lang.lexer;
+package lang.lexer;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -16,6 +16,8 @@ public class Keywords {
         OPERATORS.put("=", TokenType.EQUALS);
         OPERATORS.put("+", TokenType.PLUS);
         OPERATORS.put("-", TokenType.MINUS);
+        OPERATORS.put("*", TokenType.MULTIPLY);
+        OPERATORS.put("/", TokenType.DIVIDE);
     }
 
 }

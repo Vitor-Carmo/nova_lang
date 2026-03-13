@@ -1,7 +1,7 @@
-package main.java.lang.ast.statements;
+package lang.ast.statements;
 import java.util.Map;
 
-import main.java.lang.ast.expressions.Expression;
+import lang.ast.expressions.Expression;
 
 public class VariableExpression implements Expression {
 
@@ -17,5 +17,9 @@ public class VariableExpression implements Expression {
             throw new RuntimeException("Variable not defined: " + name);
         }
         return variables.get(name);
+    }
+
+    public String getName() {
+        return name;
     }
 }

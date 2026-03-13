@@ -1,4 +1,4 @@
-package main.java.lang.ast.expressions;
+package lang.ast.expressions;
 import java.util.Map;
 
 public class StringExpression implements Expression {
@@ -11,6 +11,10 @@ public class StringExpression implements Expression {
 
     @Override
     public Object evaluate(Map<String, Object> variables) {
+        return value;
+    }
+
+    public String getValue() {
         return value;
     }
 }

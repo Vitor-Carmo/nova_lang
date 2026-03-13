@@ -1,8 +1,8 @@
-package main.java.lang.ast.expressions;
+package lang.ast.expressions;
 
 import java.util.Map;
 
-import main.java.lang.lexer.TokenType;
+import lang.lexer.TokenType;
 
 public class BinaryExpression implements Expression {
 
@@ -32,9 +32,23 @@ public class BinaryExpression implements Expression {
 
             case MINUS:
                 return (Integer) l - (Integer) r;
+            
+            case MULTIPLY:
+                return (Integer) l * (Integer) r;
+            
+            case DIVIDE:
+                return (Integer) l / (Integer) r;
 
             default:
                 throw new RuntimeException("Unknown operator");
         }
+    }
+
+    public Expression getLeft() {
+        return left;
+    }
+
+    public Expression getRight() {
+        return right;
     }
 }

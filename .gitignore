@@ -1,1 +1,14 @@
+# IDE
+.vscode/
+
+# build
 out/
+build/
+target/
+
+# libs locais
+libs/
+
+# OS
+.DS_Store
+Thumbs.db

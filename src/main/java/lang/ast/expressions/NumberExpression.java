@@ -1,4 +1,4 @@
-package main.java.lang.ast.expressions;
+package lang.ast.expressions;
 import java.util.Map;
 
 public class NumberExpression implements Expression {
@@ -6,11 +6,15 @@ public class NumberExpression implements Expression {
     int value;
 
     public NumberExpression(int value) {
-        this.value = value;
+        this.value = value;         
     }
 
     @Override
     public Integer evaluate(Map<String, Object> variables) {
+        return value;
+    }
+
+    public int getValue() {
         return value;
     }
 }

@@ -1,9 +1,9 @@
-package main.java.lang.interpreter;
+package lang.interpreter;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.java.lang.ast.statements.PrintStatement;
-import main.java.lang.ast.statements.VariableDeclaration;
+import lang.ast.statements.PrintStatement;
+import lang.ast.statements.VariableDeclaration;
 
 public class Interpreter {
 
@@ -15,15 +15,15 @@ public class Interpreter {
 
             VariableDeclaration var = (VariableDeclaration) node;
 
-            Object value = var.expression.evaluate(variables);
+            Object value = var.getExpression().evaluate(variables);
 
-            variables.put(var.name, value);
+            variables.put(var.getName(), value);
         }
 
         if (node instanceof PrintStatement) {
 
             PrintStatement print = (PrintStatement) node;
-            Object value = print.expression.evaluate(variables);
+            Object value = print.getExpression().evaluate(variables);
 
             System.out.println(value);
 

@@ -1,12 +1,12 @@
-package main.java.lang;
+package lang;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import main.java.lang.interpreter.Interpreter;
-import main.java.lang.lexer.Lexer;
-import main.java.lang.lexer.Token;
-import main.java.lang.parser.Parser;
+import lang.interpreter.Interpreter;
+import lang.lexer.Lexer;
+import lang.lexer.Token;
+import lang.parser.Parser;
 
 public class Main {
 
