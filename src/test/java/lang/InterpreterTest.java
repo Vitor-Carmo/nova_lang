@@ -1,17 +1,14 @@
 package lang;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test; 
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.Test;
-
 import lang.interpreter.Interpreter;
 import lang.lexer.Lexer;
-import lang.parser.Parser;
-
-class InterpreterTest {
+import lang.parser.Parser;class InterpreterTest {
 
     private final Lexer lexer = new Lexer();
     private final Parser parser = new Parser();
@@ -23,6 +20,7 @@ class InterpreterTest {
         assertEquals("20\n", run("print 10 + 10"));
         assertEquals("2\n", run("print 1 + 1"));
         assertEquals("12\n", run("print 5 + 7"));
+        //assertEquals("3\n", run("print 1 + 1 + 1"));
     }
 
     @Test
