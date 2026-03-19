@@ -47,14 +47,14 @@ public class Lexer {
                         sb.append(current);
                     } else if(current == '.' && !hasDot){
                         sb.append(current);
-                        hasDot = false;
+                        hasDot = true;
                     } else{
                         break;
                     }
                     
                     i++;
                 }
-                
+
                 tokens.add(new Token(TokenType.NUMBER, sb.toString()));
                 continue;
             }
