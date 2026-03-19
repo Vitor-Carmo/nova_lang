@@ -1,20 +1,30 @@
 package lang.ast.expressions;
+
 import java.util.Map;
 
 public class NumberExpression implements Expression {
 
-    int value;
+    private final Number value;
 
-    public NumberExpression(int value) {
-        this.value = value;         
+    public NumberExpression(Number value) {
+        this.value = value;
     }
 
     @Override
-    public Integer evaluate(Map<String, Object> variables) {
+    public Number evaluate(Map<String, Object> variables) {
         return value;
     }
 
-    public int getValue() {
+    public Number getValue() {
         return value;
     }
+
+    public boolean isInteger() {
+        return value instanceof Integer;
+    }
+
+    public boolean isDouble() {
+        return value instanceof Double;
+    }
+
 }

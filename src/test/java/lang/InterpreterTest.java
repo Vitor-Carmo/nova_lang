@@ -1,14 +1,16 @@
 package lang;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test; 
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import lang.interpreter.Interpreter;
 import lang.lexer.Lexer;
-import lang.parser.Parser;class InterpreterTest {
+import lang.parser.Parser;
+
+class InterpreterTest {
 
     private final Lexer lexer = new Lexer();
     private final Parser parser = new Parser();
@@ -21,6 +23,8 @@ import lang.parser.Parser;class InterpreterTest {
         assertEquals("2\n", run("print 1 + 1"));
         assertEquals("12\n", run("print 5 + 7"));
         assertEquals("3\n", run("print 1 + 1 + 1"));
+        assertEquals("0.4\n", run("print 0.2 + 0.2"));
+        assertEquals("0.4\n", run("print 0.2 + 0.1 + 0.1"));
     }
 
     @Test
@@ -30,6 +34,8 @@ import lang.parser.Parser;class InterpreterTest {
         assertEquals("500\n", run("print 1000 - 500"));
         assertEquals("-500\n", run("print 500 - 1000"));
         assertEquals("-1\n", run("print 1 - 1 - 1"));
+        assertEquals("0.1\n", run("print 0.2 - 0.1"));
+        assertEquals("0.0\n", run("print 0.2 - 0.1 - 0.1"));
     }
 
     @Test
@@ -37,12 +43,15 @@ import lang.parser.Parser;class InterpreterTest {
         assertEquals("6\n", run("print 2 * 3"));
         assertEquals("100\n", run("print 10 * 10"));
         assertEquals("8\n", run("print 2 * 2 * 2"));
+        assertEquals("4.8\n", run("print 1.2 * 2 * 2"));
     }
 
     @Test
     void testDivide() {
-        assertEquals("5\n", run("print 10 / 2"));
-        assertEquals("1\n", run("print 1 / 1 / 1"));
+        assertEquals("5.0\n", run("print 10 / 2"));
+        assertEquals("1.0\n", run("print 1 / 1 / 1"));
+        assertEquals("1.0\n", run("print 0.5/0.5"));
+        assertEquals("1.0\n", run("print 0.5/0.5/1"));
     }
 
     @Test
@@ -55,6 +64,8 @@ import lang.parser.Parser;class InterpreterTest {
     void testVariableMath() {
         run("let x = 5");
         assertEquals("8\n", run("print x + 3"));
+        run("let x = 0.5");
+        assertEquals("1.0\n", run("print x / 0.5"));
     }
 
     private String run(String code) {

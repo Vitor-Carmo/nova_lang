@@ -38,10 +38,23 @@ public class Lexer {
             // reconhecer números
             if (Character.isDigit(c)) {
                 StringBuilder sb = new StringBuilder();
-                while (i < line.length() && Character.isDigit(line.charAt(i))) {
-                    sb.append(line.charAt(i));
+                boolean hasDot = false;
+
+                while (i < line.length()) {
+                    char current = line.charAt(i);
+
+                    if(Character.isDigit(current)){
+                        sb.append(current);
+                    } else if(current == '.' && !hasDot){
+                        sb.append(current);
+                        hasDot = false;
+                    } else{
+                        break;
+                    }
+                    
                     i++;
                 }
+                
                 tokens.add(new Token(TokenType.NUMBER, sb.toString()));
                 continue;
             }

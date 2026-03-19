@@ -51,8 +51,8 @@ public class ParserTest {
         NumberExpression left = (NumberExpression) bin.getLeft();
         NumberExpression right = (NumberExpression) bin.getRight();
 
-        assertEquals(10, left.getValue());
-        assertEquals(5, right.getValue());
+        assertEquals(10, left.getValue().intValue());
+        assertEquals(5, right.getValue().intValue());
     }
 
     @ParameterizedTest

@@ -69,7 +69,14 @@ public class Parser {
 
     private Expression parsePrimary(Token token) {
         if (token.getType() == TokenType.NUMBER) {
-            return new NumberExpression(Integer.parseInt(token.getValue()));
+            String value = token.getValue();
+
+            if (value.contains(".")) {
+                return new NumberExpression(Double.parseDouble(value));
+            } else {
+                return new NumberExpression(Long.parseLong(value));
+            }
+
         } else if (token.getType() == TokenType.STRING) {
             return new StringExpression(String.valueOf(token.getValue()));
         } else {
