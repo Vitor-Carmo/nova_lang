@@ -132,10 +132,8 @@ public class ParserTest {
 
         BinaryExpression leftBin = (BinaryExpression) bin.getLeft();
 
-
         assertTrue(leftBin.getLeft() instanceof StringExpression);
         assertTrue(leftBin.getRight() instanceof StringExpression);
-
 
         StringExpression leftLeftBin = (StringExpression) leftBin.getLeft();
         StringExpression rightLeftBin = (StringExpression) leftBin.getRight();
@@ -183,4 +181,15 @@ public class ParserTest {
         VariableExpression varExpr = (VariableExpression) stmt.getExpression();
         assertEquals(code.split(" ")[1], varExpr.getName());
     }
+
+
+    @Test
+    public void testNumberWithDotStart() {
+        List<Token> tokens = lexer.tokenize("print .5 + .5");
+
+        Object ast = parser.parse(tokens);
+
+        assertTrue(ast instanceof PrintStatement);
+    }
+
 }

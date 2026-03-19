@@ -51,7 +51,7 @@ public class nova_lang {
                 }
             }
         } catch (Exception e) {
-            System.err.println("[Erro de Sistema]: " + e.getMessage());
+            throw new RuntimeException("[Erro de Sistema]: " + e.getMessage());
         }
     }
 }

@@ -1,6 +1,8 @@
 package lang;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -68,6 +70,26 @@ class InterpreterTest {
         assertEquals("1.0\n", run("print x / 0.5"));
     }
 
+    @Test
+    void testDotStartNumber() {
+        assertEquals("1.0\n", run("print .5 + .5"));
+    }
+
+    @Test
+    void testUndefinedVariable() {
+        assertThrows(RuntimeException.class, () -> {
+            run("print x");
+        });
+    }
+
+    @Test
+    void testVariableOverwrite() {
+        run("let x = 5");
+        run("let x = 10");
+
+        assertEquals("10\n", run("print x"));
+    }
+
     private String run(String code) {
 
         Object ast = parser.parse(lexer.tokenize(code));
@@ -79,4 +101,5 @@ class InterpreterTest {
 
         return out.toString();
     }
+
 }

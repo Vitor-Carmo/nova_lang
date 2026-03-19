@@ -53,13 +53,14 @@ public class LexerTest {
 
     @Test
     void testMultipleNumbers() {
-        List<Token> tokens = lexer.tokenize("10 20 30 3.14159265359");
+        List<Token> tokens = lexer.tokenize("10 20 30 3.14159265359 .5");
 
         assertAll(
                 () -> assertEquals(TokenType.NUMBER, tokens.get(0).getType()),
                 () -> assertEquals(TokenType.NUMBER, tokens.get(1).getType()),
                 () -> assertEquals(TokenType.NUMBER, tokens.get(2).getType()),
-                () -> assertEquals(TokenType.NUMBER, tokens.get(3).getType()));
+                () -> assertEquals(TokenType.NUMBER, tokens.get(3).getType()),
+                () -> assertEquals(TokenType.NUMBER, tokens.get(4).getType()));
     }
 
     @Test
@@ -141,6 +142,50 @@ public class LexerTest {
                 () -> assertEquals(TokenType.MINUS, line2.get(1).getType()),
                 () -> assertEquals(TokenType.MULTIPLY, line3.get(1).getType()),
                 () -> assertEquals(TokenType.DIVIDE, line4.get(1).getType()));
+    }
+
+    @Test
+    void testUnclosedStringShouldFail() {
+        assertThrows(RuntimeException.class, () -> {
+            lexer.tokenize("\"hello");
+        });
+    }
+
+    @Test
+    void testInvalidCharacterShouldFail() {
+        assertThrows(RuntimeException.class, () -> {
+            lexer.tokenize("@");
+        });
+    }
+
+    @Test
+    void testDotStartNumberValue() {
+        List<Token> tokens = lexer.tokenize(".5");
+
+        assertEquals(TokenType.NUMBER, tokens.get(0).getType());
+        assertEquals("0.5", tokens.get(0).getValue());
+    }
+
+    @Test
+    void testInvalidNumberDoubleDot() {
+        List<Token> tokens = lexer.tokenize("1..2");
+
+        assertTrue(tokens.size() > 1);
+    }
+
+    @Test
+    void testCommentIgnore() {
+        List<Token> tokens = lexer.tokenize("10 + 5 # isso é comentário");
+
+        assertEquals(3, tokens.size());
+    }
+
+    @Test
+    void testStringWithSymbols() {
+        List<Token> tokens = lexer.tokenize("\"hello!@#$%\"");
+
+        assertEquals(TokenType.STRING, tokens.get(0).getType());
+        assertEquals("hello!@#$%", tokens.get(0).getValue());
     }
 
 }

@@ -5,93 +5,138 @@ import java.util.List;
 
 public class Lexer {
 
+    private String line;
+    private int position;
+    private char currentChar;
+
     public List<Token> tokenize(String line) {
+        this.line = line;
+        this.position = 0;
+        this.currentChar = line.length() > 0 ? line.charAt(0) : '\0';
+
         List<Token> tokens = new ArrayList<>();
-        int i = 0;
 
-        while (i < line.length()) {
-            char c = line.charAt(i);
+        while (currentChar != '\0') {
 
-            if(c == '#') {
-                break; // ignora o resto da linha
-            }
-            
-            // pular espaços
-            if (Character.isWhitespace(c)) {
-                i++;
+            if (currentChar == '#')
+                break;
+
+            if (Character.isWhitespace(currentChar)) {
+                advance();
                 continue;
             }
 
-            // reconhecer strings
-            if (c == '"') {
-                StringBuilder sb = new StringBuilder();
-                i++; // pula a primeira "
-                while (i < line.length() && line.charAt(i) != '"') {
-                    sb.append(line.charAt(i));
-                    i++;
-                }
-                i++; // pula a segunda "
-                tokens.add(new Token(TokenType.STRING, sb.toString()));
+            if (currentChar == '"') {
+                tokens.add(readString());
                 continue;
             }
 
-            // reconhecer números
-            if (Character.isDigit(c)) {
-                StringBuilder sb = new StringBuilder();
-                boolean hasDot = false;
-
-                while (i < line.length()) {
-                    char current = line.charAt(i);
-
-                    if(Character.isDigit(current)){
-                        sb.append(current);
-                    } else if(current == '.' && !hasDot){
-                        sb.append(current);
-                        hasDot = false;
-                    } else{
-                        break;
-                    }
-                    
-                    i++;
-                }
-                
-                tokens.add(new Token(TokenType.NUMBER, sb.toString()));
+            if (Character.isDigit(currentChar) || isDotStartNumber()) {
+                tokens.add(readNumber());
                 continue;
             }
 
-            // reconhecer identificadores e keywords
-            
-            if (Character.isLetter(c)) {
-                StringBuilder sb = new StringBuilder();
-                while (i < line.length() && Character.isLetterOrDigit(line.charAt(i))) {
-                    sb.append(line.charAt(i));
-                    i++;
-                }
-                String word = sb.toString();
-
-                if (Keywords.KEYWORDS.containsKey(word)) {
-                    tokens.add(new Token(Keywords.KEYWORDS.get(word), word));
-                } else {
-                    tokens.add(new Token(TokenType.IDENTIFIER, word));
-                }
+            if (Character.isLetter(currentChar)) {
+                tokens.add(readIdentifier());
                 continue;
             }
 
-            // operadores
-            String s = String.valueOf(c);
-            if (Keywords.OPERATORS.containsKey(s)) {
-                tokens.add(new Token(Keywords.OPERATORS.get(s), s));
-                i++;
+            String op = String.valueOf(currentChar);
+            if (Keywords.OPERATORS.containsKey(op)) {
+                tokens.add(new Token(Keywords.OPERATORS.get(op), op));
+                advance();
                 continue;
             }
 
-            i++;
+            throw new RuntimeException("Caractere inválido: " + currentChar);
         }
 
         return tokens;
     }
 
-    // Método para imprimir os tokens
+
+    private void advance() {
+        position++;
+        if (position >= line.length()) {
+            currentChar = '\0';
+        } else {
+            currentChar = line.charAt(position);
+        }
+    }
+
+    private char peek() {
+        int nextPos = position + 1;
+        if (nextPos >= line.length())
+            return '\0';
+        return line.charAt(nextPos);
+    }
+
+    private boolean isDotStartNumber() {
+        return currentChar == '.' && Character.isDigit(peek());
+    }
+
+    private Token readNumber() {
+        StringBuilder sb = new StringBuilder();
+        boolean hasDot = false;
+
+        // caso comece com "."
+        if (currentChar == '.') {
+            sb.append("0.");
+            hasDot = true;
+            advance();
+        }
+
+        while (currentChar != '\0') {
+
+            if (Character.isDigit(currentChar)) {
+                sb.append(currentChar);
+            } else if (currentChar == '.' && !hasDot) {
+                sb.append('.');
+                hasDot = true;
+            } else {
+                break;
+            }
+
+            advance();
+        }
+
+        return new Token(TokenType.NUMBER, sb.toString());
+    }
+
+    private Token readString() {
+        StringBuilder sb = new StringBuilder();
+        advance();
+
+        while (currentChar != '\0' && currentChar != '"') {
+            sb.append(currentChar);
+            advance();
+        }
+
+        if (currentChar == '\0') {
+            throw new RuntimeException("String não fechada");
+        }
+
+        advance();
+        return new Token(TokenType.STRING, sb.toString());
+    }
+
+    private Token readIdentifier() {
+        StringBuilder sb = new StringBuilder();
+
+        while (currentChar != '\0' && Character.isLetterOrDigit(currentChar)) {
+            sb.append(currentChar);
+            advance();
+        }
+
+        String word = sb.toString();
+
+        if (Keywords.KEYWORDS.containsKey(word)) {
+            return new Token(Keywords.KEYWORDS.get(word), word);
+        }
+
+        return new Token(TokenType.IDENTIFIER, word);
+    }
+
     public void printTokens(List<Token> tokens) {
         for (Token token : tokens) {
             System.out.println(token.getType() + " -> " + token.getValue());
