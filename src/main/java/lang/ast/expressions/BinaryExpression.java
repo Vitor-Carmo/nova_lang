@@ -24,20 +24,33 @@ public class BinaryExpression implements Expression {
 
         switch (operator) {
             case PLUS:
-                if (l instanceof Integer && r instanceof Integer) {
-                    return (Integer) l + (Integer) r;
+
+                if (l instanceof String || r instanceof String) {
+                    return String.valueOf(l) + String.valueOf(r);
                 }
 
-                return String.valueOf(l) + String.valueOf(r);
+                if (l instanceof Double || r instanceof Double) {
+                    return ((Number) l).doubleValue() + ((Number) r).doubleValue();
+                }
+
+                return ((Number) l).longValue() + ((Number) r).longValue();
 
             case MINUS:
-                return (Integer) l - (Integer) r;
-            
+                if (l instanceof Double || r instanceof Double) {
+                    return ((Number) l).doubleValue() - ((Number) r).doubleValue();
+                }
+
+                return ((Number) l).longValue() - ((Number) r).longValue();
+
             case MULTIPLY:
-                return (Integer) l * (Integer) r;
-            
+                if (l instanceof Double || r instanceof Double) {
+                    return ((Number) l).doubleValue() * ((Number) r).doubleValue();
+                }
+
+                return ((Number) l).longValue() * ((Number) r).longValue();
+
             case DIVIDE:
-                return (Integer) l / (Integer) r;
+                return ((Number) l).doubleValue() / ((Number) r).doubleValue();
 
             default:
                 throw new RuntimeException("Unknown operator");

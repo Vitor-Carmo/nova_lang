@@ -53,17 +53,28 @@ public class LexerTest {
 
     @Test
     void testMultipleNumbers() {
-        List<Token> tokens = lexer.tokenize("10 20 30");
+        List<Token> tokens = lexer.tokenize("10 20 30 3.14159265359");
 
         assertAll(
                 () -> assertEquals(TokenType.NUMBER, tokens.get(0).getType()),
                 () -> assertEquals(TokenType.NUMBER, tokens.get(1).getType()),
-                () -> assertEquals(TokenType.NUMBER, tokens.get(2).getType()));
+                () -> assertEquals(TokenType.NUMBER, tokens.get(2).getType()),
+                () -> assertEquals(TokenType.NUMBER, tokens.get(3).getType()));
     }
 
     @Test
     void testNumberExpression() {
         List<Token> tokens = lexer.tokenize("2+2");
+
+        assertAll(
+                () -> assertEquals(TokenType.NUMBER, tokens.get(0).getType()),
+                () -> assertEquals(TokenType.PLUS, tokens.get(1).getType()),
+                () -> assertEquals(TokenType.NUMBER, tokens.get(2).getType()));
+    }
+
+    @Test
+    void testDoubleNumberExpression() {
+        List<Token> tokens = lexer.tokenize("0.1+0.3");
 
         assertAll(
                 () -> assertEquals(TokenType.NUMBER, tokens.get(0).getType()),
