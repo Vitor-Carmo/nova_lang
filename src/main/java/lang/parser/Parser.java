@@ -16,11 +16,6 @@ public class Parser {
 
     public Object parse(List<Token> tokens) {
 
-        // print tokens for debugging
-
-        // tokens.forEach(token -> System.out.println("Token: " + token.type + " - " +
-        // token.value));
-
         if (tokens.isEmpty()) {
             return null;
         }
@@ -48,36 +43,37 @@ public class Parser {
 
     public Expression parseExpression(List<Token> tokens, int start) {
 
-        Token first = tokens.get(start);
+        Expression left = parsePrimary(tokens.get(start));
 
-        Expression left;
+        int i = start + 1;
 
-        if (first.getType() == TokenType.NUMBER) {
-            left = new NumberExpression(Integer.parseInt(first.getValue()));
-        } else if (first.getType() == TokenType.STRING) {
-            left = new StringExpression(String.valueOf(first.getValue()));
-        } else {
-            left = new VariableExpression(first.getValue());
-        }
+        while (i < tokens.size()) {
 
-        if (tokens.size() > start + 1) {
+            Token operator = tokens.get(i);
 
-            Token operator = tokens.get(start + 1);
-            Token rightToken = tokens.get(start + 2);
+            // garante que tem um próximo token
+            if (i + 1 >= tokens.size())
+                break;
 
-            Expression right;
+            Token rightToken = tokens.get(i + 1);
+            Expression right = parsePrimary(rightToken);
 
-            if (rightToken.getType() == TokenType.NUMBER) {
-                right = new NumberExpression(Integer.parseInt(rightToken.getValue()));
-            } else if (rightToken.getType() == TokenType.STRING) {
-                right = new StringExpression(String.valueOf(rightToken.getValue()));
-            } else {
-                right = new VariableExpression(rightToken.getValue());
-            }
+            left = new BinaryExpression(left, operator.getType(), right);
 
-            return new BinaryExpression(left, operator.getType(), right);
+            i += 2; // pula operador + próximo valor
+
         }
 
         return left;
+    }
+
+    private Expression parsePrimary(Token token) {
+        if (token.getType() == TokenType.NUMBER) {
+            return new NumberExpression(Integer.parseInt(token.getValue()));
+        } else if (token.getType() == TokenType.STRING) {
+            return new StringExpression(String.valueOf(token.getValue()));
+        } else {
+            return new VariableExpression(token.getValue());
+        }
     }
 }

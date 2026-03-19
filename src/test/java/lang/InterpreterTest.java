@@ -20,7 +20,7 @@ import lang.parser.Parser;class InterpreterTest {
         assertEquals("20\n", run("print 10 + 10"));
         assertEquals("2\n", run("print 1 + 1"));
         assertEquals("12\n", run("print 5 + 7"));
-        //assertEquals("3\n", run("print 1 + 1 + 1"));
+        assertEquals("3\n", run("print 1 + 1 + 1"));
     }
 
     @Test
@@ -29,17 +29,20 @@ import lang.parser.Parser;class InterpreterTest {
         assertEquals("0\n", run("print 10 - 10"));
         assertEquals("500\n", run("print 1000 - 500"));
         assertEquals("-500\n", run("print 500 - 1000"));
+        assertEquals("-1\n", run("print 1 - 1 - 1"));
     }
 
     @Test
     void testMultiply() {
         assertEquals("6\n", run("print 2 * 3"));
         assertEquals("100\n", run("print 10 * 10"));
+        assertEquals("8\n", run("print 2 * 2 * 2"));
     }
 
     @Test
     void testDivide() {
         assertEquals("5\n", run("print 10 / 2"));
+        assertEquals("1\n", run("print 1 / 1 / 1"));
     }
 
     @Test

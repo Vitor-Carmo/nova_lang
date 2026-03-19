@@ -23,6 +23,7 @@ public class ParserTest {
 
     private final Lexer lexer = new Lexer();
     private final Parser parser = new Parser();
+
     @ParameterizedTest
     @ValueSource(strings = {
             "print 10 + 5",
@@ -54,7 +55,29 @@ public class ParserTest {
         assertEquals(5, right.getValue());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "print 2 + 2 + 2",
+            "print 3 + 3 + 3",
+            "print 5 + 5 + 5"
+    })
+    public void testMultipleBinaryExpression(String code) {
 
+        List<Token> tokens = lexer.tokenize(code);
+        Object ast = parser.parse(tokens);
+
+        assertTrue(ast instanceof PrintStatement);
+
+        PrintStatement stmt = (PrintStatement) ast;
+        Expression expr = stmt.getExpression();
+
+        assertTrue(expr instanceof BinaryExpression);
+        BinaryExpression outer = (BinaryExpression) expr;
+
+        assertTrue(outer.getLeft() instanceof BinaryExpression);
+
+        assertTrue(outer.getRight() instanceof NumberExpression);
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -83,6 +106,45 @@ public class ParserTest {
 
         assertEquals(code.split("\"")[1], left.getValue());
         assertEquals(code.split("\"")[3], right.getValue());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "print \"Hello\" + \" World\" + \" !\"",
+            "print \"10\" + \"10\" + \"10\"",
+    })
+    public void testMultiBinaryExpressionStringExpression(String code) {
+        List<Token> tokens = lexer.tokenize(code);
+        Object ast = parser.parse(tokens);
+
+        assertTrue(ast instanceof PrintStatement);
+
+        PrintStatement stmt = (PrintStatement) ast;
+
+        Expression expr = stmt.getExpression();
+
+        assertTrue(expr instanceof BinaryExpression);
+
+        BinaryExpression bin = (BinaryExpression) expr;
+
+        assertTrue(bin.getLeft() instanceof BinaryExpression);
+        assertTrue(bin.getRight() instanceof StringExpression);
+
+        BinaryExpression leftBin = (BinaryExpression) bin.getLeft();
+
+
+        assertTrue(leftBin.getLeft() instanceof StringExpression);
+        assertTrue(leftBin.getRight() instanceof StringExpression);
+
+
+        StringExpression leftLeftBin = (StringExpression) leftBin.getLeft();
+        StringExpression rightLeftBin = (StringExpression) leftBin.getRight();
+
+        assertEquals(code.split("\"")[1], leftLeftBin.getValue());
+        assertEquals(code.split("\"")[3], rightLeftBin.getValue());
+
+        StringExpression right = (StringExpression) bin.getRight();
+        assertEquals(code.split("\"")[5], right.getValue());
     }
 
     @Test
